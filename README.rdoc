@@ -1,6 +1,25 @@
 = rbdablooms
 
-Description goes here.
+Ruby wrapper for dablooms, Scalable, Counting, Bloom Filter.
+
+https://github.com/bitly/dablooms
+
+== Example
+
+  >> require "rbdablooms"
+  >> bloom = Dablooms.new(:capacity=>1000,
+                            :error_rate=>.05,
+                            :filepath=>'/tmp/bloom.bin',
+                            :id=>1)
+  >> bloom.add('foo', 2)
+  1
+  >> bloom.check('bar')
+  0
+  >> bloom.delete('foo', 2)
+  0
+  >> bloom.check('foo')
+  0
+
 
 == Contributing to rbdablooms
  
