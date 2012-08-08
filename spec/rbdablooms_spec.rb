@@ -2,7 +2,8 @@ require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
 
 describe "Rbdablooms" do
   before :each do 
-    @bloom = Dablooms.new(:capacity=>1000, :error_rate=>0.05, :filepath=>'/tmp/bloom.bin', :id=>1)
+    #:capacity=>1000, :error_rate=>0.05, :filepath=>'/tmp/bloom.bin', :id=>1
+    @bloom = Dablooms.new(1000, 0.05, "/tmp/bloom.bin", 1)
   end
   
   it "adds an element to the set" do
