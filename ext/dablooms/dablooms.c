@@ -13,7 +13,8 @@ void Dablooms_mark(DabloomStruct* self)
 
 void Dablooms_free(DabloomStruct* self)
 {
-   free(self);
+  free_scaling_bloom(self->filter);
+  free(self);
 }
 
 VALUE Dablooms_allocate(VALUE klass)
@@ -26,6 +27,11 @@ VALUE Dablooms_allocate(VALUE klass)
 VALUE initialize(VALUE self, VALUE capacity, VALUE error_rate, VALUE filepath, VALUE id)
 {
   DabloomStruct* ds;
+
+  double cerror_rate = NUM2DBL(error_rate);
+  const char *cfilepath = RSTRING(filepath);
+  unsigned int ccapacity = NUM2UINT(capacity);
+  int cid = NUM2INT(id);
   
   rb_iv_set(self, "@capacity", capacity);
   rb_iv_set(self, "@error_rate", error_rate);
@@ -33,7 +39,8 @@ VALUE initialize(VALUE self, VALUE capacity, VALUE error_rate, VALUE filepath, V
   rb_iv_set(self, "@id", id);
 
   Data_Get_Struct(self, DabloomStruct, ds);
-  //ds->filter = new_scaling_bloom(capacity, error_rate, filepath, id);
+  //ds->filter = new_scaling_bloom(ccapacity, cerror_rate, cfilepath, cid);
+  //self->filter = new_scaling_bloom(capacity, error_rate, sfilepath, id);
 
   return self;
 }
@@ -44,6 +51,12 @@ static VALUE db_add(VALUE self, VALUE hash, VALUE id)
 
 static VALUE db_check(VALUE self, VALUE hash)
 {
+  //DabloomStruct* ds;
+  //const char *chash = RSTRING(hash);
+
+  //Data_Get_Struct(self, DabloomStruct, ds);
+  //return scaling_bloom_check(ds->filter, chash);
+	return dablooms_version();
 }
 
 static VALUE db_delete(VALUE self, VALUE hash, VALUE id)
